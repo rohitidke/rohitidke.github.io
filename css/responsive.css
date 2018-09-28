@@ -2,6 +2,10 @@
     .scrollDown {
         display: none;
     }
+    .margin-top {
+        margin-top: 0;
+    }
+
 }
 
 @media (min-width:1200px) {}
