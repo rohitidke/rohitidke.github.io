@@ -67,6 +67,12 @@ h3 {
     }
 }
 
+.link {
+    color: #64707b;
+    font-size: 16px;
+    font-weight: 300;
+}
+
 .test {
     font-family: 'Londrina Solid', sans-serif;
     font-weight: 300;
@@ -148,24 +154,24 @@ h3 {
 
 .btn-blue {
     border-color: #34c6d3;
-    color: #34c6d3;
+    color: #34c6d3 !important;
 }
 
 .btn-blue:hover,
 .btn-blue:focus {
     background-color: #34c6d3;
-    color: #fff;
+    color: #fff !important;
 }
 
 .btn-white {
     border-color: #fff;
-    color: #fff;
+    color: #fff !important;
 }
 
 .btn-white:hover,
 .btn-white:focus {
     background-color: #fff;
-    color: #34c6d3;
+    color: #34c6d3 !important;
 }
 
 .btn-back-to-top {
