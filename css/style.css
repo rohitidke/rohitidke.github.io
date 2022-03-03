@@ -43,7 +43,7 @@ h3 {
     /*  background-color: #22262b; */
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     background-image: url("../img/bg-home.jpg");
 }
 
