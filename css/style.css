@@ -350,6 +350,12 @@ ul.education-details li p {
     font-weight: 400;
 }
 
+.project-desc ul li {
+    color: #fff;
+    font-weight: 400;
+    list-style: square;
+}
+
 .guru {
     padding: 40px 0;
 }
