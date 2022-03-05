@@ -239,6 +239,13 @@ h3 {
     }
 }
 
+@media (min-width: 768px)
+{
+    #about>div.container>div.row {
+        width: 43%;
+    }
+}
+
 #internship-cover {
     background-image: url("../img/bg-internships.jpg");
 }
