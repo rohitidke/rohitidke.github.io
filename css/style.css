@@ -232,12 +232,12 @@ h3 {
     border-top: 700px solid transparent;
 }
 
-@media (max-width: 767px)
+/* @media (max-width: 767px)
 {
     .bg-parallax {
         background-attachment: scroll;
     }
-}
+} */
 
 #internship-cover {
     background-image: url("../img/bg-internships.jpg");
