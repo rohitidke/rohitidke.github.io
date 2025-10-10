@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rohit Tidke, Blog, Machine Learning">
+    <meta name="description" content="Sample Blog Post">
+    <meta name="author" content="Rohit Tidke">
+    <meta name="theme-color" content="#4C4C4C">
+
+    <title>Sample Blog Post - Rohit Tidke</title>
+
+    <link rel="shortcut icon" type="image/png" href="../img/fav.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Londrina+Solid" rel="stylesheet">
+    <link rel="stylesheet" href="../css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/animate/animate.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .blog-post-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 120px 0 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .blog-post-hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Londrina Solid', cursive;
+        }
+
+        .blog-post-meta {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .blog-post-meta i {
+            margin-right: 8px;
+        }
+
+        .blog-post-meta span {
+            margin: 0 15px;
+        }
+
+        .blog-post-tags {
+            margin-top: 15px;
+        }
+
+        .blog-post-tag {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+
+        .blog-content-container {
+            background-color: white;
+            padding: 80px 0;
+        }
+
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .blog-content ul, .blog-content ol {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+            padding-left: 40px;
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+
+        .blog-content code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        .blog-content pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .blog-content pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .back-to-blog {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #f8f9fa;
+        }
+
+        .back-to-blog a {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .back-to-blog a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+
+        .back-to-blog a i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <a class="navbar-brand" href="../index.html">ROHIT TIDKE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#achievements">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#internships">Work Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../blog.html">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="blog-post-hero">
+        <div class="container">
+            <h1 class="wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".1s">
+                Welcome to My Blog!
+            </h1>
+            <div class="blog-post-meta wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".2s">
+                <span><i class="far fa-calendar-alt"></i>January 15, 2025</span>
+                <span><i class="far fa-clock"></i>5 min read</span>
+            </div>
+            <div class="blog-post-tags wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".3s">
+                <span class="blog-post-tag">Machine Learning</span>
+                <span class="blog-post-tag">Data Science</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-content-container">
+        <div class="blog-content">
+            <p>
+                This is a sample blog post to demonstrate the blog structure. You can replace this content with your
+                own blog posts. The blog system supports various content types including text, images, code blocks,
+                and more.
+            </p>
+
+            <h2>Getting Started with Writing</h2>
+            <p>
+                To create a new blog post, simply copy this template file and modify the content. Make sure to update
+                the title, date, tags, and meta description in the HTML head section.
+            </p>
+
+            <h3>What You Can Include</h3>
+            <ul>
+                <li><strong>Text content:</strong> Write your thoughts, insights, and stories</li>
+                <li><strong>Images:</strong> Add screenshots, diagrams, or photos</li>
+                <li><strong>Code blocks:</strong> Share code snippets with syntax highlighting</li>
+                <li><strong>Lists:</strong> Organize information in bullet points or numbered lists</li>
+                <li><strong>Quotes:</strong> Highlight important statements or references</li>
+            </ul>
+
+            <h3>Code Example</h3>
+            <p>Here's an example of how to include code in your blog post:</p>
+            <pre><code>def hello_world():
+    """A simple Python function"""
+    print("Hello, World!")
+    return True
+
+# Call the function
+hello_world()</code></pre>
+
+            <h3>Blockquote Example</h3>
+            <blockquote>
+                "The only way to do great work is to love what you do." - Steve Jobs
+            </blockquote>
+
+            <h2>Publishing Your Blog Post</h2>
+            <p>
+                Once you've created your blog post HTML file in the <code>blogs/</code> directory, make sure to:
+            </p>
+            <ol>
+                <li>Update the <code>blog-data.js</code> file with your new post's metadata</li>
+                <li>Test your blog post locally to ensure all links and formatting work correctly</li>
+                <li>Commit and push your changes to GitHub to publish</li>
+            </ol>
+
+            <h2>Conclusion</h2>
+            <p>
+                You now have a fully functional blog system! Feel free to customize the styling, add more features,
+                or modify the template to suit your needs. Happy blogging!
+            </p>
+        </div>
+    </section>
+
+    <section class="back-to-blog">
+        <a href="../blog.html">
+            <i class="fas fa-arrow-left"></i> Back to All Posts
+        </a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="footer-copyrights">
+                        <p>Handcrafted by Rohit Tidke &copy;2025</p>
+                    </div>
+                </div>
+                <div class="col-md-7 d-none d-md-block">
+                    <div id="footer-menu">
+                        <ul>
+                            <li><a href="../index.html#home">Home</a>|</li>
+                            <li><a href="../index.html#skills">Skills</a>|</li>
+                            <li><a href="../index.html#about">About Me</a>|</li>
+                            <li><a href="../index.html#education">Education</a>|</li>
+                            <li><a href="../index.html#achievements">Achievements</a>|</li>
+                            <li><a href="../index.html#internships">Work Experience</a>|</li>
+                            <li><a href="../index.html#projects">Projects</a>|</li>
+                            <li><a href="../blog.html">Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-1  d-none d-md-block">
+                    <a href="#" id="back-to-top" class="btn btn-sm btn-blue btn-back-to-top"
+                        title="home" role="button">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../js/wow//wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+
+</html>
