@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rohit Tidke, Rohit, Tidke, Blog, Machine Learning, Data Science">
+    <meta name="description" content="Blog - Rohit Tidke">
+    <meta name="author" content="Rohit Tidke">
+    <meta name="theme-color" content="#4C4C4C">
+    <meta name="msapplication-navbutton-color" content="#4C4C4C">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#4C4C4C">
+
+    <title>Blogs - Rohit Tidke</title>
+
+    <link rel="shortcut icon" type="image/png" href="img/fav.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Londrina+Solid" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate/animate.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-container {
+            flex: 1 0 auto;
+        }
+
+        footer {
+            flex-shrink: 0;
+        }
+
+        .blog-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 120px 0 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Londrina Solid', cursive;
+        }
+
+        .blog-hero p {
+            font-size: 1.3rem;
+            color: #e0e7ff;
+            font-weight: 400;
+        }
+
+        .blog-container {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .blog-card-header {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        .blog-date {
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .blog-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .blog-tags {
+            margin-bottom: 20px;
+        }
+
+        .blog-tag {
+            display: inline-block;
+            background-color: #e8eaf6;
+            color: #667eea;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .blog-card-footer {
+            padding: 20px 30px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .read-more-btn {
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            color: #764ba2;
+            text-decoration: none;
+        }
+
+        .read-more-btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .no-blogs {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .no-blogs i {
+            font-size: 5rem;
+            color: #ddd;
+            margin-bottom: 30px;
+        }
+
+        .no-blogs h3 {
+            color: #666;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <a class="navbar-brand smooth-scroll" href="index.html">ROHIT TIDKE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#about">About Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#achievements">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#internships">Work Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="blog.html">Blogs</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="blog-hero">
+        <div class="container">
+            <h1 class="wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".1s">My Blogs</h1>
+            <p class="wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".2s">
+                Thoughts, insights, and learnings on Machine Learning, Data Science, and Software Engineering
+            </p>
+        </div>
+    </section>
+
+    <section class="blog-container">
+        <div class="container">
+            <div class="row" id="blog-posts">
+                <!-- Blog posts will be dynamically inserted here -->
+            </div>
+
+            <div class="no-blogs" id="no-blogs" style="display: none;">
+                <i class="fas fa-book-open"></i>
+                <h3>No blog posts yet. Check back soon!</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="footer-copyrights">
+                        <p>Handcrafted by Rohit Tidke &copy;2025</p>
+                    </div>
+                </div>
+                <div class="col-md-7 d-none d-md-block">
+                    <div id="footer-menu">
+                        <ul>
+                            <li><a href="index.html#home">Home</a>|</li>
+                            <li><a href="index.html#skills">Skills</a>|</li>
+                            <li><a href="index.html#about">About Me</a>|</li>
+                            <li><a href="index.html#education">Education</a>|</li>
+                            <li><a href="index.html#achievements">Achievements</a>|</li>
+                            <li><a href="index.html#internships">Work Experience</a>|</li>
+                            <li><a href="index.html#projects">Projects</a>|</li>
+                            <li><a href="blog.html">Blogs</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-1  d-none d-md-block">
+                    <a href="#" id="back-to-top" class="btn btn-sm btn-blue btn-back-to-top"
+                        title="home" role="button">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/wow//wow.min.js"></script>
+    <script src="js/blog-data.js"></script>
+    <script>
+        // Initialize WOW.js for animations
+        new WOW().init();
+
+        // Render blog posts
+        function renderBlogPosts() {
+            const blogPostsContainer = document.getElementById('blog-posts');
+            const noBlogsMessage = document.getElementById('no-blogs');
+
+            if (typeof blogPosts === 'undefined' || blogPosts.length === 0) {
+                noBlogsMessage.style.display = 'block';
+                return;
+            }
+
+            blogPosts.forEach((post, index) => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-4 wow animated fadeInUp';
+                col.setAttribute('data-wow-duration', '1s');
+                col.setAttribute('data-wow-delay', `${0.1 + (index * 0.1)}s`);
+
+                const tagsHtml = post.tags ? post.tags.map(tag =>
+                    `<span class="blog-tag">${tag}</span>`
+                ).join('') : '';
+
+                col.innerHTML = `
+                    <div class="blog-card">
+                        <div class="blog-card-header">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> ${post.date}</span>
+                            <h2 class="blog-title">${post.title}</h2>
+                            <p class="blog-excerpt">${post.excerpt}</p>
+                            <div class="blog-tags">${tagsHtml}</div>
+                        </div>
+                        <div class="blog-card-footer">
+                            <a href="${post.url}" class="read-more-btn">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                blogPostsContainer.appendChild(col);
+            });
+        }
+
+        // Render when DOM is loaded
+        document.addEventListener('DOMContentLoaded', renderBlogPosts);
+    </script>
+</body>
+
+</html>
