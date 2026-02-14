@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rohit Tidke, Blog, OpenClaw, WhatsApp, AI Agent, Local Setup">
+    <meta name="description" content="A clear beginner guide to running OpenClaw locally and connecting it to WhatsApp.">
+    <meta name="author" content="Rohit Tidke">
+    <meta name="theme-color" content="#4C4C4C">
+
+    <title>OpenClaw + WhatsApp on Local Machine (Beginner Guide) - Rohit Tidke</title>
+
+    <link rel="shortcut icon" type="image/png" href="../img/fav.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Londrina+Solid" rel="stylesheet">
+    <link rel="stylesheet" href="../css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/animate/animate.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .blog-post-hero {
+            background: linear-gradient(135deg, #1d4e89 0%, #157f9f 100%);
+            padding: 120px 0 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .blog-post-hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Londrina Solid', cursive;
+        }
+
+        .blog-post-meta {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .blog-post-meta i {
+            margin-right: 8px;
+        }
+
+        .blog-post-meta span {
+            margin: 0 15px;
+        }
+
+        .blog-post-tags {
+            margin-top: 15px;
+        }
+
+        .blog-post-tag {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+
+        .blog-content-container {
+            background-color: white;
+            padding: 80px 0;
+        }
+
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .blog-content ul,
+        .blog-content ol {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+            padding-left: 40px;
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #157f9f;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #555;
+            background-color: #f6fbfd;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .blog-content code {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", monospace;
+            font-size: 0.95em;
+        }
+
+        .blog-content pre {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .blog-content pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .draft-note {
+            background: #eef6fb;
+            border-left: 5px solid #1d4e89;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            color: #1d3557;
+        }
+
+        .important-note {
+            background: #fff8e8;
+            border-left: 5px solid #f59e0b;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 20px 0 30px 0;
+            color: #7c4a03;
+        }
+
+        .blog-figure {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .blog-figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+        }
+
+        .blog-figure figcaption {
+            margin-top: 12px;
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .back-to-blog {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #f8f9fa;
+        }
+
+        .back-to-blog a {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #1d4e89 0%, #157f9f 100%);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .back-to-blog a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(29, 78, 137, 0.35);
+            text-decoration: none;
+            color: white;
+        }
+
+        .back-to-blog a i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <a class="navbar-brand" href="../index.html">ROHIT TIDKE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#achievements">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#internships">Work Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#shout-outs">Shout-outs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../blog.html">Blogs</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="blog-post-hero">
+        <div class="container">
+            <h1 class="wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".1s">
+                OpenClaw + WhatsApp on Local Machine
+            </h1>
+            <div class="blog-post-meta wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".2s">
+                <span><i class="far fa-calendar-alt"></i>February 14, 2026</span>
+                <span><i class="far fa-clock"></i>8 min read</span>
+            </div>
+            <div class="blog-post-tags wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".3s">
+                <span class="blog-post-tag">AI Agents</span>
+                <span class="blog-post-tag">OpenClaw</span>
+                <span class="blog-post-tag">WhatsApp</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-content-container">
+        <div class="blog-content">
+            <div class="draft-note">
+                This post is for anyone who wants to run an AI agent on their local machine and connect it with
+                WhatsApp. If you are a beginner, this guide is made for you.
+            </div>
+
+            <p>
+                I recently tried <a href="https://openclaw.ai/" target="_blank" rel="noopener">OpenClaw</a> and
+                connected it to WhatsApp. It was simpler than I expected, and the result felt like a practical first
+                step toward a personal Jarvis-style assistant.
+            </p>
+
+            <p>
+                In my case, I call my assistant <strong>Chanakya</strong>. The idea is simple: if we want real control
+                over our own AI systems in the future, we should start understanding these tools now while they are
+                still evolving.
+            </p>
+
+            <h2>What Is OpenClaw?</h2>
+            <p>
+                OpenClaw is a local-first agent runtime. Think of it as an early, practical version of a personal
+                AI operator that can chat, use tools, and connect to channels like WhatsApp, Telegram, Slack, and more.
+                This is still early-stage tech, but it is already useful.
+            </p>
+
+            <h2>0) Prerequisites</h2>
+            <p>
+                At the time of writing (<strong>February 14, 2026</strong>), OpenClaw setup expects
+                <strong>Node.js v22+</strong>.
+            </p>
+            <ul>
+                <li>Use <code>nvm</code> so you can manage multiple Node versions cleanly.</li>
+                <li>Different projects can need different Node versions, so this keeps your system maintainable.</li>
+            </ul>
+
+            <h3>Install nvm</h3>
+            <pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</code></pre>
+
+            <h3>Reload your shell</h3>
+            <pre><code># zsh
+source ~/.zshrc
+
+# bash
+source ~/.bashrc</code></pre>
+
+            <h3>Install and use Node</h3>
+            <pre><code>nvm install 24.13.1
+nvm use 24.13.1
+nvm alias default 24.13.1</code></pre>
+
+            <h2>1) Install OpenClaw</h2>
+            <pre><code>curl -fsSL https://openclaw.ai/install.sh | bash</code></pre>
+            <p>
+                This script installs OpenClaw and required components. If installation fails with npm/node-related
+                errors, re-check your Node version first.
+            </p>
+
+            <h2>2) Understand 3 Core Concepts</h2>
+            <h3>Gateway Host</h3>
+            <p>
+                The Gateway is the long-running core service where your agent lives.
+                On local setup, this is typically:
+                <code>http://127.0.0.1:18789/</code>
+            </p>
+
+            <h3>Channel</h3>
+            <p>
+                A channel is a connector between the Gateway and external chat platforms
+                (WhatsApp, Telegram, Slack, and others).
+            </p>
+
+            <h3>Skill</h3>
+            <p>
+                A skill is like a capability plugin. It teaches your agent how to do useful actions beyond plain
+                chatting, such as calling tools/APIs for specific tasks.
+            </p>
+
+            <h2>3) Onboard OpenClaw</h2>
+            <pre><code>openclaw onboard --install-daemon</code></pre>
+            <p>
+                Use <code>--install-daemon</code> if you want OpenClaw running in the background all the time.
+                This means you do not need to manually start it on every terminal session.
+            </p>
+
+            <p>
+                During onboarding, choose:
+            </p>
+            <ol>
+                <li>Provider: <strong>OpenAI</strong></li>
+                <li>Auth method: <strong>OpenAI Codex (ChatGPT OAuth)</strong></li>
+                <li>Default model: keep the recommended <strong>openai-codex/gpt-5.3-codex</strong></li>
+                <li>QuickStart channel: <strong>WhatsApp (QR link)</strong></li>
+            </ol>
+
+            <h2>4) Link WhatsApp</h2>
+            <p>
+                Scan the QR code from terminal using WhatsApp Linked Devices on your phone.
+                Credentials are stored locally under:
+                <code>~/.openclaw/credentials/whatsapp/default/</code>
+            </p>
+            <p>
+                If this is your personal number, selecting personal phone mode sets a stricter default
+                (<code>allowlist</code> behavior) so unknown senders are not automatically accepted.
+            </p>
+
+            <div class="important-note">
+                Do not share tokenized dashboard URLs or personal phone numbers in public screenshots/blogs.
+                Rotate credentials if something sensitive is exposed.
+            </div>
+
+            <h2>5) If Health Check Fails Once, Don't Panic</h2>
+            <p>
+                In my run, I briefly saw:
+                <code>gateway closed (1006 abnormal closure)</code>.
+                After restart/retry, WhatsApp linked and session became usable.
+            </p>
+            <ul>
+                <li>Open dashboard and confirm top-right status shows <strong>Health OK</strong>.</li>
+                <li>Check logs at <code>~/.openclaw/logs/gateway.log</code>.</li>
+                <li>If needed, run onboarding again and relink channel.</li>
+            </ul>
+
+            <h2>Live Dashboard Snapshot</h2>
+            <figure class="blog-figure">
+                <img src="../img/openclaw-dashboard.png" alt="OpenClaw Gateway Dashboard showing chat and health status"
+                    onerror="this.style.display='none';document.getElementById('dashboard-image-missing').style.display='block';">
+                <figcaption>
+                    OpenClaw Gateway Dashboard after setup. Health is OK and chat is active.
+                </figcaption>
+            </figure>
+            <div id="dashboard-image-missing" class="important-note" style="display:none;">
+                Screenshot not found at <code>img/openclaw-dashboard.png</code>. Add your dashboard image at that
+                path to display it here.
+            </div>
+
+            <h2>6) First WhatsApp Test</h2>
+            <blockquote>
+                Prompt: "I want to send WhatsApp message"<br>
+                Then provide: recipient number + message text
+            </blockquote>
+            <p>
+                Example message input:
+            </p>
+            <pre><code>+9194XXXXXXXX
+Hello World!</code></pre>
+            <p>
+                Once linked, you can message your agent remotely through WhatsApp while you are away from your desk.
+            </p>
+
+            <h2>7) Keep It Running</h2>
+            <p>
+                For continuous availability, keep your machine online. If the host machine is off or sleeping deeply,
+                your agent will not process incoming messages until it is back online.
+            </p>
+
+            <h2>Final Thoughts</h2>
+            <p>
+                OpenClaw setup is beginner-friendly if you follow steps in order. Start small, keep security settings
+                strict, and gradually add channels/skills. This is an early phase of personal AI infrastructure, so
+                experimenting now gives you a big advantage later.
+            </p>
+        </div>
+    </section>
+
+    <section class="back-to-blog">
+        <a href="../blog.html">
+            <i class="fas fa-arrow-left"></i> Back to All Posts
+        </a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="footer-copyrights">
+                        <p>Handcrafted by Rohit Tidke &copy;2026</p>
+                    </div>
+                </div>
+                <div class="col-md-7 d-none d-md-block">
+                    <div id="footer-menu">
+                        <ul>
+                            <li><a href="../index.html#home">Home</a>|</li>
+                            <li><a href="../index.html#skills">Skills</a>|</li>
+                            <li><a href="../index.html#about">About Me</a>|</li>
+                            <li><a href="../index.html#education">Education</a>|</li>
+                            <li><a href="../index.html#achievements">Achievements</a>|</li>
+                            <li><a href="../index.html#internships">Work Experience</a>|</li>
+                            <li><a href="../index.html#projects">Projects</a>|</li>
+                            <li><a href="../blog.html">Blogs</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-1  d-none d-md-block">
+                    <a href="#" id="back-to-top" class="btn btn-sm btn-blue btn-back-to-top"
+                        title="home" role="button">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../js/wow//wow.min.js"></script>
+    <script src="../js/navbar-scroll.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+
+</html>
