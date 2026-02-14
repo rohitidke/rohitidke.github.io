@@ -19,7 +19,7 @@ const blogPosts = [
         date: "February 14, 2026",
         excerpt: "A practical beginner walkthrough to install OpenClaw, understand gateway/channels/skills, connect WhatsApp, and run your local agent reliably.",
         tags: ["AI Agents", "OpenClaw", "WhatsApp"],
-        url: "blogs/openclaw-agent-first-real-blog.html"
+        url: "blogs/openclaw-agent-blog.html"
     },
     {
         title: "Welcome to My Blog!",
