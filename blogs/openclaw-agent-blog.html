@@ -429,7 +429,27 @@ Hello World!</code></pre>
                 Once linked, you can message your agent remotely through WhatsApp while you are away from your desk.
             </p>
 
-            <h2>7) Keep It Running</h2>
+            <h2>7) Share Your Assistant with Someone (Safely)</h2>
+            <p>
+                If you want someone else to talk to your assistant on your behalf, switch WhatsApp DM policy from
+                <code>allowlist</code> to <code>pairing</code>.
+            </p>
+            <pre><code>openclaw config set channels.whatsapp.dmPolicy pairing
+openclaw gateway restart
+openclaw channels status --probe</code></pre>
+            <p>
+                Confirm the status shows <code>dm: pairing</code>.
+                If <code>allowFrom</code> exists from older setup, you can leave it as-is when using pairing mode.
+            </p>
+            <p>
+                New people will receive a pairing code when they message. Approve them once:
+            </p>
+            <pre><code>openclaw pairing approve whatsapp &lt;pairing_code&gt;</code></pre>
+            <p>
+                Note: DM policy control is currently CLI/config based, not available in the dashboard UI.
+            </p>
+
+            <h2>8) Keep It Running</h2>
             <p>
                 For continuous availability, keep your machine online. If the host machine is off or sleeping deeply,
                 your agent will not process incoming messages until it is back online.
