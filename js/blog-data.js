@@ -15,6 +15,13 @@
 
 const blogPosts = [
     {
+        title: "Life Is More Fun When You Treat It Like a Game",
+        date: "April 8, 2026",
+        excerpt: "A personal mindset shift that helped me see life with more clarity: focus on main missions, retry after failure, stay present, and enjoy the game instead of getting attached to every result.",
+        tags: ["Mindset", "Personal Growth", "Games", "Life"],
+        url: "blogs/treat-life-like-a-game.html"
+    },
+    {
         title: "Why One Line in a Prompt Fixed My Silent LLM Failure",
         date: "April 8, 2026",
         excerpt: "A debugging story about an LLM pipeline that looked broken at the tool layer but was actually failing after the tool call. The real fix was a single prompt instruction that defined fallback behavior.",
