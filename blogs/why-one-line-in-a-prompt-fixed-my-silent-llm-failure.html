@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rohit Tidke, Blog, LLM, Prompt Engineering, MCP, AI Reliability">
+    <meta name="description" content="Why one small prompt instruction fixed a silent failure in a structured LLM workflow.">
+    <meta name="author" content="Rohit Tidke">
+    <meta name="theme-color" content="#4C4C4C">
+
+    <title>Why One Line in a Prompt Fixed My Silent LLM Failure - Rohit Tidke</title>
+
+    <link rel="shortcut icon" type="image/png" href="../img/fav.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Londrina+Solid" rel="stylesheet">
+    <link rel="stylesheet" href="../css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/animate/animate.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .blog-post-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 120px 0 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .blog-post-hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Londrina Solid', cursive;
+        }
+
+        .blog-post-meta {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .blog-post-meta i {
+            margin-right: 8px;
+        }
+
+        .blog-post-meta span {
+            margin: 0 15px;
+        }
+
+        .blog-post-tags {
+            margin-top: 15px;
+        }
+
+        .blog-post-tag {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+
+        .blog-content-container {
+            background-color: white;
+            padding: 80px 0;
+        }
+
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .blog-content ul, .blog-content ol {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+            padding-left: 40px;
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+
+        .blog-content code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        .blog-content pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .blog-content pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .back-to-blog {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #f8f9fa;
+        }
+
+        .back-to-blog a {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .back-to-blog a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+
+        .back-to-blog a i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <a class="navbar-brand" href="../index.html">ROHIT TIDKE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#achievements">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#internships">Work Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#shout-outs">Shout-outs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../blog.html">Blogs</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="blog-post-hero">
+        <div class="container">
+            <h1 class="wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".1s">
+                Why One Line in a Prompt Fixed My Silent LLM Failure
+            </h1>
+            <div class="blog-post-meta wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".2s">
+                <span><i class="far fa-calendar-alt"></i>April 8, 2026</span>
+                <span><i class="far fa-clock"></i>4 min read</span>
+            </div>
+            <div class="blog-post-tags wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".3s">
+                <span class="blog-post-tag">LLMs</span>
+                <span class="blog-post-tag">Prompt Engineering</span>
+                <span class="blog-post-tag">Reliability</span>
+                <span class="blog-post-tag">MCP</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-content-container">
+        <div class="blog-content">
+            <p>
+                I was debugging a strange issue in a regional content generation pipeline. On paper, the setup was
+                simple: a script sent a prompt to an LLM Gateway, the model called an MCP tool named
+                <code>get_regional_summary</code>, and then it was supposed to return a structured JSON object with
+                four text sections like <code>living_in_city</code>, <code>population_overview</code>,
+                <code>popular_districts</code>, and <code>current_real_estate_market</code>.
+            </p>
+
+            <p>
+                For some places, this worked perfectly. For others, it failed in a way that was hard to reason about.
+            </p>
+
+            <pre><code>Could not parse ai_generated_content for '/de/bayern/landshut' -- using empty strings. Response preview: ''
+Skipping '/de/bayern/landshut' -- ai_generated_content incomplete, will retry on next run</code></pre>
+
+            <p>
+                At first glance, it looked like either the MCP tool was broken or the place-specific data was missing.
+                But that turned out not to be true.
+            </p>
+
+            <h2>The Tool Was Fine</h2>
+            <p>
+                I tested the same location, <code>/de/bayern/landshut</code>, directly in Swagger UI against the LLM
+                Gateway. When I used a much simpler prompt that only asked the model to call
+                <code>get_regional_summary</code> and return the exact JSON from the tool, it worked. The tool
+                returned valid location metadata, infrastructure numbers, and market data.
+            </p>
+
+            <p>
+                That was the key insight: the failure was not in the tool call. The failure happened after the tool
+                call, during the generation step.
+            </p>
+
+            <h2>Where the Prompt Broke Down</h2>
+            <p>
+                My original prompt asked the model to produce a polished four-part living guide with a long list of
+                constraints:
+            </p>
+
+            <ul>
+                <li>Use the MCP tool as the source of truth</li>
+                <li>Do not invent facts</li>
+                <li>Mention concrete local areas</li>
+                <li>Include named local entities</li>
+                <li>Describe housing differences</li>
+                <li>Avoid generic phrasing</li>
+                <li>Return strict JSON</li>
+            </ul>
+
+            <p>
+                That sounds reasonable, but in practice it created a conflict. For a place like Braunschweig, the
+                model apparently had enough confidence to satisfy those requirements and still generate a response. For
+                Landshut, it likely hit a contradiction: it was told not to invent anything, but it was also asked to
+                produce very specific local detail that was not directly available from the tool output.
+            </p>
+
+            <p>
+                Instead of giving a cautious fallback answer, it returned nothing.
+            </p>
+
+            <h2>The Fix Was One Line</h2>
+            <p>
+                The fix was almost embarrassingly small. I added one instruction under
+                <code>## Edge-Case Handling</code>:
+            </p>
+
+            <pre><code>* Never return an empty response</code></pre>
+
+            <p>
+                And suddenly the same location started working.
+            </p>
+
+            <h2>Why That Helped</h2>
+            <p>
+                The model needed a tie-breaker. Without that instruction, it seems to have treated silence as the
+                safest option when the prompt became too constrained. With that one line, it had permission to degrade
+                gracefully instead of failing silently.
+            </p>
+
+            <p>
+                This was a useful reminder that prompt bugs are often not about obvious syntax mistakes. They are often
+                about instruction priority. If a prompt contains competing goals like "be precise," "don't invent,"
+                "be detailed," and "follow strict structure," the model may need an explicit rule for what to do when
+                those goals cannot all be satisfied at once.
+            </p>
+
+            <p>
+                In my case, "never return an empty response" acted as that rule.
+            </p>
+
+            <h2>The Bigger Lesson</h2>
+            <p>
+                If you are building structured LLM workflows, especially ones that combine tool use and strict output
+                schemas, always define the fallback behavior. Do not assume the model will improvise a graceful
+                recovery on its own.
+            </p>
+
+            <ul>
+                <li>If you want safe output, say so.</li>
+                <li>If you want complete output, say so.</li>
+                <li>If you want the model to prefer a cautious generic answer over silence, say that explicitly.</li>
+            </ul>
+
+            <p>
+                Sometimes reliability improves not because the model got smarter, but because the prompt got clearer
+                about failure handling.
+            </p>
+
+            <h2>Short Version</h2>
+            <blockquote>
+                One tiny prompt change solved a bug that looked like a tool failure, a parsing bug, or a
+                location-specific issue. It was none of those. The model simply needed permission to respond
+                imperfectly instead of not responding at all.
+            </blockquote>
+
+            <p>
+                That permission was one line:
+            </p>
+
+            <pre><code>* Never return an empty response</code></pre>
+        </div>
+    </section>
+
+    <section class="back-to-blog">
+        <a href="../blog.html">
+            <i class="fas fa-arrow-left"></i> Back to All Posts
+        </a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="footer-copyrights">
+                        <p>Handcrafted by Rohit Tidke &copy;2025</p>
+                    </div>
+                </div>
+                <div class="col-md-7 d-none d-md-block">
+                    <div id="footer-menu">
+                        <ul>
+                            <li><a href="../index.html#home">Home</a>|</li>
+                            <li><a href="../index.html#skills">Skills</a>|</li>
+                            <li><a href="../index.html#about">About Me</a>|</li>
+                            <li><a href="../index.html#education">Education</a>|</li>
+                            <li><a href="../index.html#achievements">Achievements</a>|</li>
+                            <li><a href="../index.html#internships">Work Experience</a>|</li>
+                            <li><a href="../index.html#projects">Projects</a>|</li>
+                            <li><a href="../blog.html">Blogs</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-1  d-none d-md-block">
+                    <a href="#" id="back-to-top" class="btn btn-sm btn-blue btn-back-to-top"
+                        title="home" role="button">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../js/wow//wow.min.js"></script>
+    <script src="../js/navbar-scroll.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+
+</html>

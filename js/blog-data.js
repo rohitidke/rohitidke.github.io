@@ -15,6 +15,13 @@
 
 const blogPosts = [
     {
+        title: "Why One Line in a Prompt Fixed My Silent LLM Failure",
+        date: "April 8, 2026",
+        excerpt: "A debugging story about an LLM pipeline that looked broken at the tool layer but was actually failing after the tool call. The real fix was a single prompt instruction that defined fallback behavior.",
+        tags: ["LLMs", "Prompt Engineering", "Reliability", "MCP"],
+        url: "blogs/why-one-line-in-a-prompt-fixed-my-silent-llm-failure.html"
+    },
+    {
         title: "Welcome to My Blog!",
         date: "January 15, 2025",
         excerpt: "This is my first blog post! I'm excited to share my thoughts, insights, and learnings on Machine Learning, Data Science, and Software Engineering. Stay tuned for more content!",
