@@ -34,7 +34,7 @@ This is a personal portfolio website built with HTML, CSS, and JavaScript. It fe
 ```
 .
 ├── index.html          # Main portfolio page
-├── blog.html           # Blog listing page
+├── blogs.html          # Blog listing page
 ├── blogs/              # Individual blog posts
 ├── css/                # Stylesheets
 ├── js/                 # JavaScript files
