@@ -15,6 +15,13 @@
 
 const blogPosts = [
     {
+        title: "Why One Line in a Prompt Fixed My Silent LLM Failure",
+        date: "April 8, 2026",
+        excerpt: "A debugging story about an LLM pipeline that looked broken at the tool layer but was actually failing after the tool call. The real fix was a single prompt instruction that defined fallback behavior.",
+        tags: ["LLMs", "Prompt Engineering", "Reliability", "MCP"],
+        url: "blogs/why-one-line-in-a-prompt-fixed-my-silent-llm-failure.html"
+    },
+    {
         title: "OpenClaw + WhatsApp on Local Machine (Beginner Guide)",
         date: "February 14, 2026",
         excerpt: "A practical beginner walkthrough to install OpenClaw, understand gateway/channels/skills, connect WhatsApp, and run your local agent reliably.",
