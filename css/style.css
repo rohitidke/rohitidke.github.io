@@ -13,6 +13,22 @@ li {
     list-style: none;
 }
 
+.blog-content ul {
+    list-style: disc;
+}
+
+.blog-content ol {
+    list-style: decimal;
+}
+
+.blog-content ul li {
+    list-style: disc;
+}
+
+.blog-content ol li {
+    list-style: decimal;
+}
+
 body {
     font-family: "Roboto Condensed", sans-serif;
 }
