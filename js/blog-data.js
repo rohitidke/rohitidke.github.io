@@ -15,6 +15,13 @@
 
 const blogPosts = [
     {
+        title: "AI vs AI: Don't Outsource Your Thinking",
+        date: "June 26, 2026",
+        excerpt: "I pitted two Claude Code instances against each other in a code review debate. Both took strong positions. Both flipped the moment they saw the other's argument. The lesson: AI generates convincing reasoning, not genuine conviction.",
+        tags: ["AI", "Critical Thinking", "Code Review", "Engineering Culture"],
+        url: "blogs/ai-vs-ai-dont-outsource-your-thinking.html"
+    },
+    {
         title: "Life Is More Fun When You Treat It Like a Game",
         date: "April 8, 2026",
         excerpt: "A personal mindset shift that helped me see life with more clarity: focus on main missions, retry after failure, stay present, and enjoy the game instead of getting attached to every result.",

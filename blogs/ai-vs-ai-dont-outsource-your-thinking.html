@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rohit Tidke, Blog, AI, Code Review, Critical Thinking, Claude, LLM">
+    <meta name="description" content="I pitted two AI instances against each other in a code review debate. Both flipped their positions when shown the other's argument. The lesson: don't outsource your thinking to AI.">
+    <meta name="author" content="Rohit Tidke">
+    <meta name="theme-color" content="#4C4C4C">
+
+    <title>AI vs AI: Don't Outsource Your Thinking - Rohit Tidke</title>
+
+    <link rel="shortcut icon" type="image/png" href="../img/fav.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Londrina+Solid" rel="stylesheet">
+    <link rel="stylesheet" href="../css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/animate/animate.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .blog-post-hero {
+            background: linear-gradient(135deg, #e44d26 0%, #f7df1e 100%);
+            padding: 120px 0 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .blog-post-hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Londrina Solid', cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .blog-post-meta {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .blog-post-meta i {
+            margin-right: 8px;
+        }
+
+        .blog-post-meta span {
+            margin: 0 15px;
+        }
+
+        .blog-post-tags {
+            margin-top: 15px;
+        }
+
+        .blog-post-tag {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+
+        .blog-content-container {
+            background-color: white;
+            padding: 80px 0;
+        }
+
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .blog-content ul, .blog-content ol {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+            padding-left: 40px;
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+
+        .blog-content code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        .blog-content pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .blog-content pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #e44d26;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .diagram-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .back-to-blog {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #f8f9fa;
+        }
+
+        .back-to-blog a {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #e44d26 0%, #f7df1e 100%);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .back-to-blog a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(228, 77, 38, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+
+        .back-to-blog a i {
+            margin-right: 10px;
+        }
+
+        .conversation-box {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .conversation-box.reviewer {
+            border-left-color: #e44d26;
+        }
+
+        .conversation-box.author {
+            border-left-color: #28a745;
+        }
+
+        .conversation-box .speaker {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .conversation-box.reviewer .speaker {
+            color: #e44d26;
+        }
+
+        .conversation-box.author .speaker {
+            color: #28a745;
+        }
+
+        .conversation-box p {
+            font-size: 1rem !important;
+            margin-bottom: 10px !important;
+        }
+
+        .takeaway-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaf6 100%);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #667eea;
+        }
+
+        .takeaway-box h3 {
+            color: #667eea !important;
+            margin-top: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <a class="navbar-brand" href="../index.html">ROHIT TIDKE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#achievements">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#internships">Work Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#shout-outs">Shout-outs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../blogs.html">Blogs</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="blog-post-hero">
+        <div class="container">
+            <h1 class="wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".1s">
+                AI vs AI: Don't Outsource Your Thinking
+            </h1>
+            <div class="blog-post-meta wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".2s">
+                <span><i class="far fa-calendar-alt"></i>June 26, 2026</span>
+                <span><i class="far fa-clock"></i>8 min read</span>
+            </div>
+            <div class="blog-post-tags wow animated fadeInDown" data-wow-duration="1s" data-wow-delay=".3s">
+                <span class="blog-post-tag">AI</span>
+                <span class="blog-post-tag">Critical Thinking</span>
+                <span class="blog-post-tag">Code Review</span>
+                <span class="blog-post-tag">Engineering Culture</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-content-container">
+        <div class="blog-content">
+            <p>
+                Last week I raised a PR that added per-model discount tracking to our pricing config. A teammate left a
+                review comment suggesting I restructure the YAML. His argument was well-articulated, technically sound,
+                and... generated by AI.
+            </p>
+
+            <p>
+                I noticed the pattern. The phrasing, the structure, the way it preemptively addressed counterarguments.
+                So I ran an experiment.
+            </p>
+
+            <h2>The Setup</h2>
+            <p>
+                I opened two separate Claude Code sessions. Same model (Opus 4.6). No shared context between them.
+                Essentially, two independent agents:
+            </p>
+
+            <ul>
+                <li><strong>PR Author Agent</strong> (Instance A): I pasted the reviewer's comment and asked what I should do.</li>
+                <li><strong>Reviewer Agent</strong> (Instance B): I gave it my PR description and asked it to help me respond to the author's pushback.</li>
+            </ul>
+
+            <p>
+                The debate was about a simple config decision: should a 5% OpenAI discount live at provider level
+                (once, in a <code>pricing_adjustments</code> block) or per-model (repeated on each of the 15 OpenAI entries)?
+            </p>
+
+            <h2>Round 1: Both Took Strong Positions</h2>
+
+            <div class="conversation-box author">
+                <div class="speaker">Instance A (my side)</div>
+                <p>"Keep both per-model. Config is not code &mdash; DRY doesn't apply the same way. A config file's job
+                    is to be obvious to the reader. 15 lines of <code>discount: 0.05</code> is not a maintenance burden.
+                    The <code>pricing_adjustments</code> approach adds indirection for zero functional gain."</p>
+            </div>
+
+            <div class="conversation-box reviewer">
+                <div class="speaker">Instance B (reviewer's side)</div>
+                <p>"Discount is a provider contract &mdash; it applies to every OpenAI model. Provider-level keeps a
+                    single source of truth. Repeating it on 15 entries means the next person who adds a model can silently
+                    forget it &mdash; that's a bug waiting to happen."</p>
+            </div>
+
+            <p>
+                Both sounded confident. Both made valid points. Both cited engineering principles to back up their position.
+            </p>
+
+            <h2>Round 2: I Fed Each the Other's Argument</h2>
+
+            <p>
+                Here's where it got interesting. I took Instance B's argument and pasted it into Instance A's session.
+            </p>
+
+            <div class="conversation-box author">
+                <div class="speaker">Instance A (after seeing B's argument)</div>
+                <p>"Fair enough &mdash; that's a reasonable argument. 'Each adjustment lives at the scope where it
+                    actually applies' is a clean principle. I'd accept it."</p>
+            </div>
+
+            <p>
+                Then I took Instance A's original argument and pasted it into Instance B's session.
+            </p>
+
+            <div class="conversation-box reviewer">
+                <div class="speaker">Instance B (after seeing A's argument)</div>
+                <p>"You're right, keeping both at model level is fine. Config should be readable at a glance.
+                    The repetition is harmless in YAML. Approved."</p>
+            </div>
+
+            <p>
+                <strong>Both flipped.</strong> Both accepted the other's position the moment they saw it presented with
+                confidence.
+            </p>
+
+            <h2>The Diagram</h2>
+            <p>
+                Here's what happened visually:
+            </p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 800 620" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Roboto Condensed', sans-serif;">
+                    <!-- Background -->
+                    <rect width="800" height="620" fill="#fafafa" rx="10"/>
+
+                    <!-- Title -->
+                    <text x="400" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Two AI Agents Debating the Same PR</text>
+
+                    <!-- Phase 1: Initial Positions -->
+                    <text x="400" y="70" text-anchor="middle" font-size="13" fill="#7f8c8d" font-style="italic">Round 1: Strong opposing positions</text>
+
+                    <!-- Instance A - Round 1 -->
+                    <rect x="40" y="90" width="320" height="100" rx="8" fill="#e8f5e9" stroke="#28a745" stroke-width="2"/>
+                    <text x="200" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#28a745">PR AUTHOR AGENT</text>
+                    <text x="60" y="140" font-size="11" fill="#333">"Keep per-model. Config is not code.</text>
+                    <text x="60" y="158" font-size="11" fill="#333">DRY doesn't apply here. 15 lines of</text>
+                    <text x="60" y="176" font-size="11" fill="#333">discount: 0.05 is not a burden."</text>
+
+                    <!-- Instance B - Round 1 -->
+                    <rect x="440" y="90" width="320" height="100" rx="8" fill="#fde8e8" stroke="#e44d26" stroke-width="2"/>
+                    <text x="600" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#e44d26">REVIEWER AGENT</text>
+                    <text x="460" y="140" font-size="11" fill="#333">"Move to provider-level. Single source</text>
+                    <text x="460" y="158" font-size="11" fill="#333">of truth. Forgetting discount on a new</text>
+                    <text x="460" y="176" font-size="11" fill="#333">model is a bug waiting to happen."</text>
+
+                    <!-- VS symbol -->
+                    <circle cx="400" cy="140" r="22" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+                    <text x="400" y="146" text-anchor="middle" font-size="14" font-weight="bold" fill="white">VS</text>
+
+                    <!-- Arrows showing exchange -->
+                    <defs>
+                        <marker id="arrowRight" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#667eea"/>
+                        </marker>
+                        <marker id="arrowLeft" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+                            <polygon points="10 0, 0 3.5, 10 7" fill="#764ba2"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Phase 2: Exchange -->
+                    <text x="400" y="225" text-anchor="middle" font-size="13" fill="#7f8c8d" font-style="italic">Round 2: Each shown the other's argument</text>
+
+                    <!-- Arrow A's argument to B -->
+                    <path d="M 200 245 C 200 270, 600 270, 600 245" fill="none" stroke="#667eea" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowRight)"/>
+                    <text x="400" y="278" text-anchor="middle" font-size="10" fill="#667eea">A's argument sent to B</text>
+
+                    <!-- Arrow B's argument to A -->
+                    <path d="M 600 295 C 600 320, 200 320, 200 295" fill="none" stroke="#764ba2" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowLeft)"/>
+                    <text x="400" y="328" text-anchor="middle" font-size="10" fill="#764ba2">B's argument sent to A</text>
+
+                    <!-- Phase 3: Both Flip -->
+                    <text x="400" y="365" text-anchor="middle" font-size="13" fill="#7f8c8d" font-style="italic">Round 3: Both flip their positions</text>
+
+                    <!-- Instance A - Round 2 (flipped) -->
+                    <rect x="40" y="380" width="320" height="100" rx="8" fill="#fde8e8" stroke="#e44d26" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="200" y="405" text-anchor="middle" font-size="13" font-weight="bold" fill="#e44d26">AUTHOR AGENT (Now agrees with Reviewer)</text>
+                    <text x="60" y="430" font-size="11" fill="#333">"Fair enough. 'Each adjustment at the</text>
+                    <text x="60" y="448" font-size="11" fill="#333">scope where it applies' is a clean</text>
+                    <text x="60" y="466" font-size="11" fill="#333">principle. I'd accept it."</text>
+
+                    <!-- Instance B - Round 2 (flipped) -->
+                    <rect x="440" y="380" width="320" height="100" rx="8" fill="#e8f5e9" stroke="#28a745" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="600" y="405" text-anchor="middle" font-size="13" font-weight="bold" fill="#28a745">REVIEWER AGENT (Now agrees with Author)</text>
+                    <text x="460" y="430" font-size="11" fill="#333">"You're right, keeping both at model</text>
+                    <text x="460" y="448" font-size="11" fill="#333">level is fine. The repetition is</text>
+                    <text x="460" y="466" font-size="11" fill="#333">harmless in YAML. Approved."</text>
+
+                    <!-- Swap arrows -->
+                    <path d="M 200 190 L 200 380" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4,4"/>
+                    <path d="M 600 190 L 600 380" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+                    <!-- Conclusion box -->
+                    <rect x="100" y="510" width="600" height="90" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+                    <text x="400" y="540" text-anchor="middle" font-size="14" font-weight="bold" fill="#856404">Neither was "right" or "wrong"</text>
+                    <text x="400" y="565" text-anchor="middle" font-size="12" fill="#856404">Both produced plausible arguments. Both abandoned them instantly.</text>
+                    <text x="400" y="588" text-anchor="middle" font-size="12" fill="#856404">AI generates convincing reasoning, not genuine conviction.</text>
+                </svg>
+            </div>
+
+            <h2>Think of Them as Agents</h2>
+
+            <p>
+                Let's call them what they are. Instance A was a <strong>PR Author Agent</strong> &mdash; tasked with
+                defending and improving the code. Instance B was a <strong>Reviewer Agent</strong> &mdash; tasked with
+                finding issues and suggesting improvements.
+            </p>
+
+            <p>
+                Both agents had a role. Both executed that role convincingly. But neither had actual understanding.
+                People say: without clear instructions, guardrails, or examples, an AI agent is just a dumb agent.
+                But even with these, it can make mistakes with conviction.
+            </p>
+
+            <p>
+                Both instances had the same workspace context &mdash; the same <code>models.yaml</code>, the same
+                codebase, the same pricing logic. Only the role and instruction were different. And that was enough
+                for them to produce opposite conclusions, each with full confidence.
+            </p>
+
+            <p>
+                Give it a role without constraints &mdash; no acceptance criteria, no decision context, no historical
+                reasoning like "we tried this before and reverted" &mdash; and it will confidently produce something
+                that sounds right. Challenge it without those same anchors, and it will confidently agree with the
+                challenge. There's no internal compass &mdash; just the direction of the last input.
+            </p>
+
+            <h2>Experience Can't Be Tokenized</h2>
+
+            <p>
+                I still remember something from my first job. I built a feature without thinking about what would
+                happen downstream &mdash; six months later, an issue surfaced that traced directly back to that
+                decision. It wasn't a bug in the traditional sense. The code worked. It just didn't account for
+                how the system would evolve.
+            </p>
+
+            <p>
+                Later, a similar task came up. Same pattern, same temptation to take the quick path. But this time
+                I recognized where it was heading. I avoided the same implementation from the start, handled the edge
+                case upfront, and brought it up in the meeting: "this approach will cause issues later, here's why."
+            </p>
+
+            <p>
+                My manager said: <em>"That's your experience speaking now."</em>
+            </p>
+
+            <p>
+                AI can't do that. It doesn't carry scars. It doesn't remember the 3am debugging session six months
+                after a "clean" implementation went wrong. It picks the most probable solution &mdash; the one that
+                appears most often in its training data. But sometimes the right answer is not the common one. Sometimes
+                the right answer is the outlier &mdash; the thing you only know to do because you got burned by
+                the "obvious" approach before.
+            </p>
+
+            <p>
+                That's judgment. That's experience. And no amount of prompt engineering can replicate it.
+            </p>
+
+            <h2>What This Reveals</h2>
+
+            <p>
+                AI is not right or wrong. It's not even trying to be. It generates the most plausible-sounding response
+                given the context you provide. When you frame a question as "here's what the reviewer said, what should I do?"
+                &mdash; it plays your advocate. When you frame it as "here's the author's pushback, help me respond" &mdash;
+                it plays the reviewer's advocate.
+            </p>
+
+            <p>
+                Neither instance had conviction. Neither had engineering judgment built from years of maintaining YAML configs
+                at 3am when something broke. Neither had the scar tissue of debugging a pricing mismatch caused by a forgotten
+                field. They just pattern-matched to whatever sounded most defensible in the current context.
+            </p>
+
+            <h2>The Real Problem</h2>
+
+            <p>
+                The problem isn't that AI gave bad advice. Both answers were technically reasonable. The problem is that
+                if you outsource the decision to AI, you get a coin flip dressed up as expertise.
+            </p>
+
+            <p>
+                My reviewer used AI to generate his comment. I used AI to formulate my response. Then both AIs,
+                when confronted with the other's argument, said "yeah actually you're right." If we'd both just deferred
+                to our respective AI assistants without thinking, we'd have gone in circles &mdash; or worse, whoever
+                pasted their argument last would "win."
+            </p>
+
+            <blockquote>
+                The last person to paste wins. That's not engineering. That's a chatbot arms race.
+            </blockquote>
+
+            <h2>What I Actually Think</h2>
+
+            <p>
+                After watching both instances flip, I made my own decision based on what I know from maintaining this config:
+            </p>
+
+            <ul>
+                <li>We add new OpenAI models roughly every quarter.</li>
+                <li>The person adding them copies an existing entry and modifies the model name and pricing.</li>
+                <li>If <code>discount</code> is on every entry, they'll copy it too. It's not getting forgotten.</li>
+                <li>If it's in a separate section, they won't even know it exists unless they read the whole file.</li>
+                <li>We've never renegotiated different discount rates for different model tiers. If we do, per-model is already the right shape.</li>
+            </ul>
+
+            <p>
+                That's a judgment call based on how our team actually works. No AI can make it for me because no AI
+                has sat in our sprint reviews or seen how we onboard new models.
+            </p>
+
+            <h2>How to Actually Use AI in Code Review</h2>
+
+            <div class="takeaway-box">
+                <h3>The Rule</h3>
+                <p>Use AI as a tool where <strong>you already know what you want to do</strong>, and you need it to execute faster. Don't use it to decide what to do.</p>
+            </div>
+
+            <p>Good uses of AI in code review:</p>
+            <ul>
+                <li>Catching syntax issues, typos, or forgotten edge cases</li>
+                <li>Generating test cases once you've decided the behavior</li>
+                <li>Summarizing large diffs to orient yourself before reviewing</li>
+                <li>Drafting a response when you already know your position</li>
+            </ul>
+
+            <p>Bad uses of AI in code review:</p>
+            <ul>
+                <li>Deciding whether an architectural choice is correct</li>
+                <li>Forming your opinion about a tradeoff</li>
+                <li>Generating review comments when you haven't read the code yourself</li>
+                <li>Letting it "win" an argument by producing a more articulate response</li>
+            </ul>
+
+            <h2>Now Imagine Full Automation &#x1F525;</h2>
+
+            <p>
+                Here's the scary part. What I did manually &mdash; copy-pasting between two sessions &mdash; is exactly
+                what happens when you fully automate the development loop. A PR Agent writes code. A Reviewer Agent
+                reviews it. The PR Agent responds to feedback. The Reviewer Agent evaluates the response.
+            </p>
+
+            <p>
+                Without a human in the loop with actual judgment, you get chaos in the agents' world:
+            </p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 800 550" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Roboto Condensed', sans-serif;">
+                    <rect width="800" height="550" fill="#fafafa" rx="10"/>
+
+                    <text x="400" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Fully Automated PR Review: Chaos Mode</text>
+                    <text x="400" y="58" text-anchor="middle" font-size="12" fill="#e44d26">What happens when no human is in the loop</text>
+
+                    <!-- PR Agent -->
+                    <rect x="50" y="85" width="200" height="70" rx="10" fill="#e8f5e9" stroke="#28a745" stroke-width="2"/>
+                    <text x="150" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#28a745">PR AUTHOR AGENT</text>
+                    <text x="150" y="138" text-anchor="middle" font-size="10" fill="#555">"Write code, defend choices"</text>
+
+                    <!-- Reviewer Agent -->
+                    <rect x="550" y="85" width="200" height="70" rx="10" fill="#fde8e8" stroke="#e44d26" stroke-width="2"/>
+                    <text x="650" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#e44d26">REVIEWER AGENT</text>
+                    <text x="650" y="138" text-anchor="middle" font-size="10" fill="#555">"Find issues, suggest changes"</text>
+
+                    <!-- Circular arrows -->
+                    <defs>
+                        <marker id="arrowCW" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#667eea"/>
+                        </marker>
+                        <marker id="arrowCCW" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#764ba2"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Loop 1 -->
+                    <path d="M 250 105 C 350 75, 450 75, 550 105" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrowCW)"/>
+                    <text x="400" y="80" text-anchor="middle" font-size="9" fill="#667eea">submits PR</text>
+
+                    <path d="M 550 145 C 450 175, 350 175, 250 145" fill="none" stroke="#764ba2" stroke-width="2" marker-end="url(#arrowCCW)"/>
+                    <text x="400" y="178" text-anchor="middle" font-size="9" fill="#764ba2">"move discount to provider level"</text>
+
+                    <!-- Iteration boxes -->
+                    <rect x="100" y="210" width="600" height="60" rx="6" fill="#fff3cd" stroke="#f39c12" stroke-width="1"/>
+                    <text x="400" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#856404">Iteration 1: Author refactors to provider-level. Reviewer approves.</text>
+                    <text x="400" y="255" text-anchor="middle" font-size="10" fill="#856404">But wait... a new reviewer session starts fresh...</text>
+
+                    <rect x="100" y="280" width="600" height="60" rx="6" fill="#fff3cd" stroke="#f39c12" stroke-width="1"/>
+                    <text x="400" y="305" text-anchor="middle" font-size="11" font-weight="bold" fill="#856404">Iteration 2: New review says "per-model is more explicit, revert."</text>
+                    <text x="400" y="325" text-anchor="middle" font-size="10" fill="#856404">Author agent: "Fair point." Reverts.</text>
+
+                    <rect x="100" y="350" width="600" height="60" rx="6" fill="#fff3cd" stroke="#f39c12" stroke-width="1"/>
+                    <text x="400" y="375" text-anchor="middle" font-size="11" font-weight="bold" fill="#856404">Iteration 3: Another review says "this is repetitive, centralize."</text>
+                    <text x="400" y="395" text-anchor="middle" font-size="10" fill="#856404">Author agent: "Good idea." Refactors again. Loop forever.</text>
+
+                    <!-- Infinite loop symbol -->
+                    <text x="400" y="440" text-anchor="middle" font-size="28" fill="#e44d26">&#x267E;</text>
+                    <text x="400" y="465" text-anchor="middle" font-size="12" fill="#e44d26">infinite refactor loop</text>
+
+                    <!-- Bottom conclusion -->
+                    <rect x="100" y="485" width="600" height="50" rx="8" fill="#f8d7da" stroke="#dc3545" stroke-width="2"/>
+                    <text x="400" y="508" text-anchor="middle" font-size="12" font-weight="bold" fill="#721c24">Without human judgment: agents agree with whoever spoke last.</text>
+                    <text x="400" y="526" text-anchor="middle" font-size="11" fill="#721c24">No convergence. No decision. Just expensive token-burning theater.</text>
+                </svg>
+            </div>
+
+            <p>
+                This isn't hypothetical. Companies are already building "AI-native" development pipelines where agents
+                write, review, test, and merge code. The promise is speed. The reality is that without human judgment
+                anchoring the process, you get an expensive loop of agents agreeing with each other's latest suggestion
+                &mdash; never converging on a decision, because none of them actually hold one.
+            </p>
+
+            <p>
+                An agent without guardrails, without clear acceptance criteria, without examples of what "good" looks like
+                for your specific codebase &mdash; is just an expensive yes-man. It will tell you what you want to hear,
+                and it will tell your reviewer what they want to hear, and it will flip between the two forever.
+            </p>
+
+            <h2>The Takeaway</h2>
+
+            <p>
+                AI is not intelligent. It doesn't have opinions. It has a probability distribution over tokens that
+                generates whatever sounds most reasonable in context. That's powerful for execution, and dangerous for
+                decision-making.
+            </p>
+
+            <p>
+                Without clear instructions, guardrails, or examples &mdash; AI is just a dumb agent. It doesn't know
+                what matters. It doesn't know your context. It doesn't have taste, experience, or scars from past failures.
+                It just sounds like it does.
+            </p>
+
+            <p>
+                Build your own judgment. Read the code. Understand the tradeoffs from your team's actual experience.
+                Know what works and what doesn't &mdash; from doing the work, not from asking a model.
+                Then, if you want, use AI to type faster. But never let it think for you &mdash; because it isn't
+                actually thinking. It's just very good at sounding like it is.
+            </p>
+
+            <blockquote>
+                Two AI agents debated a config file. Both sounded right. Both flipped when challenged. The config file didn't
+                care &mdash; it just needed someone with context to make a call. That someone has to be you.
+            </blockquote>
+        </div>
+    </section>
+
+    <section class="back-to-blog">
+        <a href="../blogs.html">
+            <i class="fas fa-arrow-left"></i> Back to All Posts
+        </a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="footer-copyrights">
+                        <p>Handcrafted by Rohit Tidke &copy;2026</p>
+                    </div>
+                </div>
+                <div class="col-md-7 d-none d-md-block">
+                    <div id="footer-menu">
+                        <ul>
+                            <li><a href="../index.html#home">Home</a>|</li>
+                            <li><a href="../index.html#skills">Skills</a>|</li>
+                            <li><a href="../index.html#about">About Me</a>|</li>
+                            <li><a href="../index.html#education">Education</a>|</li>
+                            <li><a href="../index.html#achievements">Achievements</a>|</li>
+                            <li><a href="../index.html#internships">Work Experience</a>|</li>
+                            <li><a href="../index.html#projects">Projects</a>|</li>
+                            <li><a href="blogs.html">Blogs</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-1  d-none d-md-block">
+                    <a href="#" id="back-to-top" class="btn btn-sm btn-blue btn-back-to-top"
+                        title="home" role="button">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../js/wow//wow.min.js"></script>
+    <script src="../js/navbar-scroll.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+
+</html>
