@@ -242,10 +242,9 @@ h3 {
     width: 52%;
     height: 700px;
     float: right;
-    background-image: url("../img/bg-about.jpg");
-    background-size: cover;
-    border-left: 200px solid #fff;
-    border-top: 700px solid transparent;
+    background-image: url("../img/profile_photo_latest.jpg");
+    background-position: left 75%;
+    clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%);
 }
 
 @media (max-width: 767px)
@@ -257,6 +256,11 @@ h3 {
 
 @media (min-width: 768px)
 {
+    #about-bg-diagonal {
+        background-position: 48vw center;
+        background-size: max(52vw, 75.3vh) auto;
+    }
+
     #about>div.container>div.row {
         width: 43%;
     }
